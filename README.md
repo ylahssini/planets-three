@@ -1,4 +1,6 @@
-# New Project
+# Tlatah
+Tlatah is just my expirement to learn Three.js. I'm using the react-three-fiber to see how is easy to implement the ecosystem of Three.js.
+This is an example of creation the planets including starts and loading textures & other stuffs.
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
