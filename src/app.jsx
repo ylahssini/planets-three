@@ -2,6 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import Mars from './components/mars';
+import './app.scss'
 
 const App = () => {
     return (
