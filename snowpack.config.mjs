@@ -1,10 +1,14 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
   mount: {
-    /* ... */
+    public: '/',
+    src: '/dist'
   },
   plugins: [
-    /* ... */
+    [
+      '@snowpack/plugin-sass',
+      { native: false },
+    ]
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
