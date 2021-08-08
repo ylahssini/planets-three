@@ -1,34 +1,33 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Stars, OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import Mars from './components/planets/mars';
-import Earth from './components/planets/earth';
-import './app.scss'
+import { useProgress, Html, OrbitControls } from '@react-three/drei';
+import { RecoilRoot } from 'recoil';
+import Wrapper from './components/wrapper';
+import './app.scss';
+
+function CustomLoader() {
+    const { progress } = useProgress()
+
+    return (
+        <Html center>
+            <span style={{ color: 'white', textAlign: 'center' }}>{Math.round(progress)} % loaded</span>
+        </Html>
+    )
+}
 
 const App = () => {
     return (
         <main>
             <Canvas>
-                <React.Suspense fallback={null}>
-                    <PerspectiveCamera position={[-8, 0, 0]}>
-                        <Stars radius={333} depth={1} />
-                        <pointLight color="#f8f8f0" position={[4, 0, 2]} intensity={1} />
-                        <Mars />
-                        <Earth />
-                    </PerspectiveCamera>
-
-                    <OrbitControls
-                        enableZoom
-                        enableRotate
-                        enablePan
-                        panSpeed={0.5}
-                        zoomSpeed={0.6}
-                        rotateSpeed={0.6}
-                    />
+                <React.Suspense fallback={<CustomLoader />}>
+                    <RecoilRoot>
+                        <Wrapper />
+                        <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
+                    </RecoilRoot>
                 </React.Suspense>
             </Canvas>
         </main>
-    )
+    );
 }
 
 export default App;

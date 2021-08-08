@@ -20,10 +20,10 @@ body,
 html {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 .tooltip {
-    transform: translate3d(50%, 0, 0);
     background: #202035;
     color: white;
     padding: 9px;
@@ -54,4 +54,12 @@ html {
             color: #202035;
         }
     }
+}
+
+.planet_buttons {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    display: flex;
+    gap: 1em;
 }
