@@ -14,14 +14,15 @@ import JupiterCloudsMap from '../../assets/jupiter/jupiter_clouds.jpg';
 const Jupiter = () => {
     const [show, setShow] = useState(false);
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(TextureLoader, [JupiterColorMap, JupiterBumpMap, JupiterNormalMap, JupiterCloudsMap]);
-    const [, setState] = useRecoilState(planetState)
+    const [state, setState] = useRecoilState(planetState)
     const jupiterRef = useRef();
     const cloudRef = useRef();
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (jupiterRef.current) {
-            jupiterRef.current.rotation.y = elapsed / 7 * -1;
+            jupiterRef.current.rotation.y = elapsed / 10 * -1;
+            cloudRef.current.rotation.y = elapsed / 10 * -1;
         }
     });
 
@@ -31,18 +32,18 @@ const Jupiter = () => {
             camera: {
                 ...s.camera,
                 name: 'jupiter',
-                position: [16, 0, 0],
+                position: state.planets.jupiter.camera,
             },
         }));
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={[-16, 0, 0]}>
+            <mesh ref={cloudRef} position={state.planets.jupiter.position}>
                 <sphereGeometry args={[5.01, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
-            <mesh ref={jupiterRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={[-16, 0, 0]}>
+            <mesh ref={jupiterRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.jupiter.position}>
                 <sphereGeometry args={[5, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
@@ -51,10 +52,10 @@ const Jupiter = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={8}>
+                <Html distanceFactor={15}>
                     <Tooltip
-                        title="الزهرة"
-                        description="الزُّهَرَة هو ثاني كواكب المجموعة الشمسية من حيث المسافة بينه وبين الشمس. يبعد الزهرة عن الشمس نحو 108 مليون كيلومتر، ومدارها حول الشمس ليس دائريًا تمامًا"
+                        title="المشتري"
+                        description="المُشْتَرِي هو أضخم كواكب المجموعة الشمسية. سمي بالمشتري لأنه يستشري في سيره أي يلـجُّ ويمضي ويَـجِدُّ فيه بلا فتور ولا انكسار"
                         show={show}
                         handleHide={() => setShow(false)}
                     />

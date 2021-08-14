@@ -56,13 +56,20 @@ html {
     }
 }
 
-.planet_buttons {
-    position: absolute;
-    top: 1em;
-    left: 1em;
-    display: flex;
-    gap: 1em;
+.instruction {
+    pointer-events: none;
+    transform: translateX(-50%) !important;
+    bottom: 0;
+
+    > p {
+        transform: translateY(50vh);
+        color: #fff;
+        width: 100vh;
+        pointer-events: none;
+        text-align: center;
+    }
 }
+
 
 .loading {
     color: #fff;

@@ -14,7 +14,7 @@ const Wrapper = () => {
 
     useFrame(() => {
         if (cameraRef.current) {
-            const [ox, oy, oz] = state.planets[state.camera.name];
+            const [ox, oy, oz] = state.planets[state.camera.name].camera;
             const [cx, cy, cz] = state.camera.position;
             const [rx, ry, rz] = Object.values(cameraRef.current.position);
             let speed = 0.1;

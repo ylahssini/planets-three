@@ -14,14 +14,16 @@ import VenusCloudsMap from '../../assets/venus/venus_clouds.jpg';
 const Venus = () => {
     const [show, setShow] = useState(false);
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(TextureLoader, [VenusColorMap, VenusBumpMap, VenusNormalMap, VenusCloudsMap]);
-    const [, setState] = useRecoilState(planetState)
+    const [state, setState] = useRecoilState(planetState)
     const venusRef = useRef();
     const cloudRef = useRef();
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (venusRef.current) {
-            venusRef.current.rotation.y = elapsed / 7 * -1;
+            venusRef.current.rotation.y = elapsed / 4 * -1;
+            cloudRef.current.rotation.y = elapsed / 4 * -1;
+
         }
     });
 
@@ -31,18 +33,18 @@ const Venus = () => {
             camera: {
                 ...s.camera,
                 name: 'venus',
-                position: [-16, 0, 0],
+                position: state.planets.venus.camera,
             },
         }));
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={[16, 0, 0]}>
-                <sphereGeometry args={[0.81, 100, 100]} />
+            <mesh ref={cloudRef} position={state.planets.venus.position}>
+                <sphereGeometry args={[0.802, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
-            <mesh ref={venusRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={[16, 0, 0]}>
+            <mesh ref={venusRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.venus.position}>
                 <sphereGeometry args={[0.8, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial

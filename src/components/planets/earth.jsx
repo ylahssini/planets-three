@@ -46,7 +46,7 @@ const Earth = () => {
     const [show, setShow] = useState(false);
     const [normalMap, colorMap, bumpMap, cloudMap, moonMap, moonNormal, moonBump] = useLoader(TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap, MoonMap, MoonNormal, MoonBump]);
     const orbitRef = useOrbit();
-    const [, setState] = useRecoilState(planetState);
+    const [state, setState] = useRecoilState(planetState);
     const earthRef = useRef();
     const cloudRef = useRef();
     const moonRef = useRef();
@@ -66,20 +66,20 @@ const Earth = () => {
             camera: {
                 ...s.camera,
                 name: 'earth',
-                position: [-8, 0, 0],
+                position: state.planets.earth.camera,
             },
         }));
     }
 
     return (
         <group>
-            <mesh ref={cloudRef} position={[8, 0, 0]} castShadow>
+            <mesh ref={cloudRef} position={state.planets.earth.position} castShadow>
                 <sphereGeometry args={[1.51, 100, 100]} castShadow />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
             <mesh
                 ref={earthRef}
-                position={[8, 0, 0]}
+                position={state.planets.earth.position}
                 rotation={[0, 0, 0.3]}
                 onClick={handleGo}
                 onDoubleClick={() => setShow(true)}
@@ -103,7 +103,7 @@ const Earth = () => {
                 </Html>
             </mesh>
             <group ref={orbitRef}>
-                <mesh ref={moonRef} position={[8, 0, 0]} castShadow>
+                <mesh ref={moonRef} position={state.planets.earth.position} castShadow>
                     <sphereGeometry args={[0.2, 100, 100]} receiveShadow castShadow />
                     <meshPhysicalMaterial specular={moonBump} />
                     <meshStandardMaterial

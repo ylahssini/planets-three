@@ -4,14 +4,26 @@ export const planetState = atom({
     key: 'planets',
     default: {
         planets: {
-            earth: [-8, 0, 0],
-            mars: [0, 0, 0],
-            venus: [-16, 0, 0],
-            jupiter: [16, 0, 0]
+            venus: {
+                camera: [-8, 0, 0],
+                position: [8, 0, 0],
+            },
+            earth: {
+                camera: [-1, 0, 0],
+                position: [1, 0, 0]
+            },
+            mars: {
+                camera: [8, 0, 0],
+                position: [-8, 0, 0],
+            },
+            jupiter: {
+                camera: [12, 0, 0],
+                position: [-20, 0, 0]
+            }
         },
         camera: {
             name: 'earth',
-            position: [-8, 0, 0],
+            position: [0, 0, 0],
         },
     },
 });

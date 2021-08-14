@@ -14,7 +14,7 @@ import MarsCloudsMap from '../../assets/mars/mars_clouds.jpg';
 const Mars = () => {
     const [show, setShow] = useState(false);
     const [normalMap, colorlMap, bumpMap, cloudMap] = useLoader(TextureLoader, [MarsNormalMap, MarsColorlMap, MarsBumpMap, MarsCloudsMap]);
-    const [, setState] = useRecoilState(planetState)
+    const [state, setState] = useRecoilState(planetState)
     const marsRef = useRef();
     const cloudRef = useRef();
 
@@ -22,6 +22,7 @@ const Mars = () => {
         const elapsed = clock.elapsedTime;
         if (marsRef.current) {
             marsRef.current.rotation.y = elapsed / 7 * -1;
+            cloudRef.current.rotation.y = elapsed / 7 * -1;
         }
     });
 
@@ -31,18 +32,18 @@ const Mars = () => {
             camera: {
                 ...s.camera,
                 name: 'mars',
-                position: [0, 0, 0],
+                position: state.planets.mars.camera,
             },
         }));
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={[0, 0, 0]}>
-                <sphereGeometry args={[0.77, 100, 100]} />
+            <mesh ref={cloudRef} position={state.planets.mars.position}>
+                <sphereGeometry args={[0.751, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
-            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={[0, 0, 0]}>
+            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.mars.position}>
                 <sphereGeometry args={[0.75, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial

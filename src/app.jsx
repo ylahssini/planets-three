@@ -22,8 +22,8 @@ const App = () => {
                 <React.Suspense fallback={<CustomLoader />}>
                     <RecoilRoot>
                         <Wrapper />
-                        <Html position={[0, 0, 0]}>
-                            <div style={{ position: 'fixed', top: 0, left: 0, color: '#fff', height: '100vh' }}><span>ggg</span></div>
+                        <Html position={[0, 0, 0]} className="instruction">
+                            <p>انقر فوق الكوكب للتركيز عليه أو انقر نقرًا مزدوجًا فوقه لإظهار المعلومات المتعلقة به.</p>
                         </Html>
                         <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
                     </RecoilRoot>
