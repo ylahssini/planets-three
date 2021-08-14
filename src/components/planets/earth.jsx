@@ -1,23 +1,53 @@
 import React, { useRef, useState } from 'react';
+import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { useRecoilState } from 'recoil';
 import Tooltip from '../tooltip';
-import { planetState } from '../../recoil/state';
+import { planetState } from '../../recoil/state';
 import EarthNormalMap from '../../assets/earth/8k_earth_normal_map.jpg';
 import EarthDayColorMap from '../../assets/earth/8k_earth_daymap.jpg';
 import EarthBumpMap from '../../assets/earth/8k_earth_specular_map.jpg';
 import EarthCloudsMap from '../../assets/earth/8k_earth_clouds.jpg';
+import MoonMap from '../../assets/earth/8k_moon.jpg';
+
+function useOrbit() {
+    const ref = useRef(null);
+    const index = useRef(0);
+
+    useFrame(() => {
+        if (ref.current) {
+            const radius = 2.8;
+            const points = 400;
+            const angle = (index.current / points) * 2 * Math.PI;
+            const x = radius * Math.cos(angle);
+            const z = radius * Math.sin(angle);
+
+            ref.current.position.x = x;
+            ref.current.position.z = z;
+            ref.current.position.y = 0;
+
+            if (index.current > frames) {
+                index.current = 0;
+            } else {
+                index.current += 1;
+            }
+        }
+    });
+
+    return ref;
+}
 
 const Earth = () => {
     const [show, setShow] = useState(false);
-    const [normalMap, colorMap, bumpMap, cloudMap] = useLoader(TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap]);
-    const [, setState] = useRecoilState(planetState)
+    const [normalMap, colorMap, bumpMap, cloudMap, moonMap] = useLoader(TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap, MoonMap]);
+    const orbitRef = useOrbit();
+    const [, setState] = useRecoilState(planetState);
     const earthRef = useRef();
     const cloudRef = useRef();
-    // const moonRef = useRef();
+    const moonRef = useRef();
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
@@ -40,15 +70,27 @@ const Earth = () => {
     }
 
     return (
-        <>
-            <mesh ref={cloudRef} position={[8, 0, 0]}>
-                <sphereGeometry args={[1.51, 100, 100]} />
+        <group>
+            <mesh ref={cloudRef} position={[8, 0, 0]} castShadow>
+                <sphereGeometry args={[1.51, 100, 100]} castShadow />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
-            <mesh ref={earthRef} position={[8, 0, 0]} rotation={[0, 0, 0.15]} onClick={handleGo} onDoubleClick={() => setShow(true)}>
-                <sphereGeometry args={[1.5, 100, 100]} />
+            <mesh
+                ref={earthRef}
+                position={[8, 0, 0]}
+                rotation={[0, 0, 0.3]}
+                onClick={handleGo}
+                onDoubleClick={() => setShow(true)}
+                castShadow
+            >
+                <sphereGeometry args={[1.5, 100, 100]} castShadow />
                 <meshPhysicalMaterial bumpMap={bumpMap} />
-                <meshStandardMaterial map={colorMap} normalMap={normalMap} bumpMap={bumpMap} />
+                <meshStandardMaterial
+                    map={colorMap}
+                    normalMap={normalMap}
+                    bumpMap={bumpMap}
+                    side={THREE.DoubleSide}
+                />
                 <Html distanceFactor={10}>
                     <Tooltip
                         title="الأرض"
@@ -58,13 +100,13 @@ const Earth = () => {
                     />
                 </Html>
             </mesh>
-            {/* <group ref={moonRef}>
-                <mesh position={[10, 1, 1]}>
-                    <sphereGeometry args={[0.2, 100, 100]} />
-                    <meshStandardMaterial color="#ff0000" />
+            <group ref={orbitRef}>
+                <mesh ref={moonRef} position={[8, 0, 0]} castShadow>
+                    <sphereGeometry args={[0.2, 100, 100]} receiveShadow castShadow />
+                    <meshPhysicalMaterial map={moonMap} />
                 </mesh>
-            </group> */ }
-        </>
+            </group>
+        </group>
     )
 };
 

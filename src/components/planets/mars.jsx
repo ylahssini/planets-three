@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { Html } from '@react-three/drei';
@@ -28,17 +29,22 @@ const Mars = () => {
             camera: {
                 ...s.camera,
                 name: 'mars',
-                position: [-4, 0, 0],
+                position: [0, 0, 0],
             },
         }));
     }
 
     return (
         <>
-            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={[4, 0, 0]}>
-                <sphereGeometry args={[1, 100, 100]} />
+            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={[0, 0, 0]}>
+                <sphereGeometry args={[0.5, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
-                <meshStandardMaterial map={colorlMap} normalMap={normalMap} bumpMap={bumpMap} />
+                <meshStandardMaterial
+                    map={colorlMap}
+                    normalMap={normalMap}
+                    bumpMap={bumpMap}
+                    side={THREE.DoubleSide}
+                />
                 <Html distanceFactor={8}>
                     <Tooltip
                         title="المريخ"

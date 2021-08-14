@@ -18,7 +18,7 @@ function CustomLoader() {
 const App = () => {
     return (
         <main>
-            <Canvas>
+            <Canvas shadowMap>
                 <React.Suspense fallback={<CustomLoader />}>
                     <RecoilRoot>
                         <Wrapper />

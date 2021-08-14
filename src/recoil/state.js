@@ -5,7 +5,7 @@ export const planetState = atom({
     default: {
         planets: {
             earth: [-8, 0, 0],
-            mars: [-4, 0, 0],
+            mars: [0, 0, 0],
         },
         camera: {
             name: 'earth',
