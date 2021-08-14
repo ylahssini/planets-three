@@ -10,7 +10,7 @@ function CustomLoader() {
 
     return (
         <Html center>
-            <span style={{ color: 'white', textAlign: 'center' }}>{Math.round(progress)} % loaded</span>
+            <span className="loading">{Math.round(progress)}% تحميل... </span>
         </Html>
     )
 }
@@ -22,6 +22,9 @@ const App = () => {
                 <React.Suspense fallback={<CustomLoader />}>
                     <RecoilRoot>
                         <Wrapper />
+                        <Html position={[0, 0, 0]}>
+                            <div style={{ position: 'fixed', top: 0, left: 0, color: '#fff', height: '100vh' }}><span>ggg</span></div>
+                        </Html>
                         <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
                     </RecoilRoot>
                 </React.Suspense>

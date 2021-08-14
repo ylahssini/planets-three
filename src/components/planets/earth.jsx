@@ -11,7 +11,9 @@ import EarthNormalMap from '../../assets/earth/8k_earth_normal_map.jpg';
 import EarthDayColorMap from '../../assets/earth/8k_earth_daymap.jpg';
 import EarthBumpMap from '../../assets/earth/8k_earth_specular_map.jpg';
 import EarthCloudsMap from '../../assets/earth/8k_earth_clouds.jpg';
-import MoonMap from '../../assets/earth/8k_moon.jpg';
+import MoonMap from '../../assets/earth/moon_map.jpg';
+import MoonNormal from '../../assets/earth/moon_normal.jpg';
+import MoonBump from '../../assets/earth/moon_bump.jpg';
 
 function useOrbit() {
     const ref = useRef(null);
@@ -42,7 +44,7 @@ function useOrbit() {
 
 const Earth = () => {
     const [show, setShow] = useState(false);
-    const [normalMap, colorMap, bumpMap, cloudMap, moonMap] = useLoader(TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap, MoonMap]);
+    const [normalMap, colorMap, bumpMap, cloudMap, moonMap, moonNormal, moonBump] = useLoader(TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap, MoonMap, MoonNormal, MoonBump]);
     const orbitRef = useOrbit();
     const [, setState] = useRecoilState(planetState);
     const earthRef = useRef();
@@ -84,7 +86,7 @@ const Earth = () => {
                 castShadow
             >
                 <sphereGeometry args={[1.5, 100, 100]} castShadow />
-                <meshPhysicalMaterial bumpMap={bumpMap} />
+                <meshPhysicalMaterial specular={bumpMap} />
                 <meshStandardMaterial
                     map={colorMap}
                     normalMap={normalMap}
@@ -103,7 +105,13 @@ const Earth = () => {
             <group ref={orbitRef}>
                 <mesh ref={moonRef} position={[8, 0, 0]} castShadow>
                     <sphereGeometry args={[0.2, 100, 100]} receiveShadow castShadow />
-                    <meshPhysicalMaterial map={moonMap} />
+                    <meshPhysicalMaterial specular={moonBump} />
+                    <meshStandardMaterial
+                        map={moonMap}
+                        normalMap={moonNormal}
+                        bumpMap={moonBump}
+                        side={THREE.DoubleSide}
+                    />
                 </mesh>
             </group>
         </group>

@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil';
 import { planetState } from '../recoil/state';
 import Mars from './planets/mars';
 import Earth from './planets/earth';
+import Venus from './planets/venus';
+import Jupiter from './planets/jupiter';
 
 const Wrapper = () => {
     const [state] = useRecoilState(planetState);
@@ -18,7 +20,13 @@ const Wrapper = () => {
             let speed = 0.1;
 
             if (ox < 0) {
-                cameraRef.current.position.x = cx < rx ? rx - speed : cx;
+                if (cx < Math.round(rx)) {
+                    cameraRef.current.position.x = rx - speed;
+                } else if (cx > Math.round(rx)) {
+                    cameraRef.current.position.x = rx + speed;
+                } else {
+                    cameraRef.current.position.x = cx;
+                }
             } else {
                 cameraRef.current.position.x = cx > rx ? rx + speed : cx;
             }
@@ -42,7 +50,7 @@ const Wrapper = () => {
             <Stars radius={333} depth={1} />
             <directionalLight
                 color="#f8f8f0"
-                position={[20, 0, 0]}
+                position={[30, 0, 0]}
                 intensity={1}
                 castShadow
                 shadow-mapSize-height={1024}
@@ -50,6 +58,8 @@ const Wrapper = () => {
             />
             <Mars />
             <Earth />
+            <Venus />
+            <Jupiter />
         </PerspectiveCamera>
     )
 };
