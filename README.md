@@ -1,6 +1,8 @@
-# Three Planets
-Three Planets is just my expirement to learn Three.js. I'm using the react-three-fiber to see how is easy to implement the ecosystem of Three.js.
-This is an example of creation the planets including starts and loading textures & other stuffs.
+# Planets - Three 
+This is a small project of creation the planets including stars and loading textures & other stuffs.
+I use React-three-fiber as libray to create 3D models.
+
+---------------------------------------------------------------------------------------------------------------------
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
