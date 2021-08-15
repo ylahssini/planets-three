@@ -7,13 +7,13 @@ import { Html } from '@react-three/drei';
 import { useRecoilState } from 'recoil';
 import Tooltip from '../tooltip';
 import { planetState } from '../../recoil/state';
-import EarthNormalMap from '../../assets/earth/8k_earth_normal_map.jpg';
-import EarthDayColorMap from '../../assets/earth/8k_earth_daymap.jpg';
-import EarthBumpMap from '../../assets/earth/8k_earth_specular_map.jpg';
-import EarthCloudsMap from '../../assets/earth/8k_earth_clouds.jpg';
-import MoonMap from '../../assets/earth/moon_map.jpg';
-import MoonNormal from '../../assets/earth/moon_normal.jpg';
-import MoonBump from '../../assets/earth/moon_bump.jpg';
+import EarthNormalMap from '../../assets/earth/8k_earth_normal_map.webp';
+import EarthDayColorMap from '../../assets/earth/8k_earth_daymap.webp';
+import EarthBumpMap from '../../assets/earth/8k_earth_specular_map.webp';
+import EarthCloudsMap from '../../assets/earth/8k_earth_clouds.webp';
+import MoonMap from '../../assets/earth/moon_map.webp';
+import MoonNormal from '../../assets/earth/moon_normal.webp';
+import MoonBump from '../../assets/earth/moon_bump.webp';
 
 function useOrbit() {
     const ref = useRef(null);

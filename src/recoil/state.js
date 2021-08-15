@@ -17,8 +17,8 @@ export const planetState = atom({
                 position: [-8, 0, 0],
             },
             jupiter: {
-                camera: [12, 0, 0],
-                position: [-20, 0, 0]
+                camera: [30, 0, 0],
+                position: [-50, 0, 0]
             }
         },
         camera: {

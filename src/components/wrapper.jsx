@@ -19,16 +19,12 @@ const Wrapper = () => {
             const [rx, ry, rz] = Object.values(cameraRef.current.position);
             let speed = 0.1;
 
-            if (ox < 0) {
-                if (cx < Math.round(rx)) {
-                    cameraRef.current.position.x = rx - speed;
-                } else if (cx > Math.round(rx)) {
-                    cameraRef.current.position.x = rx + speed;
-                } else {
-                    cameraRef.current.position.x = cx;
-                }
+            if (cx < Math.round(rx)) {
+                cameraRef.current.position.x = rx - speed;
+            } else if (cx > Math.round(rx)) {
+                cameraRef.current.position.x = rx + speed;
             } else {
-                cameraRef.current.position.x = cx > rx ? rx + speed : cx;
+                cameraRef.current.position.x = cx;
             }
 
             if (oy < 0) {

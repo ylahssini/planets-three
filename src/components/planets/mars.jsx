@@ -6,10 +6,10 @@ import { Html } from '@react-three/drei';
 import { useRecoilState } from 'recoil';
 import Tooltip from '../tooltip';
 import { planetState } from '../../recoil/state';
-import MarsNormalMap from '../../assets/mars/mars_normal.jpg';
-import MarsColorlMap from '../../assets/mars/mars_map.jpg';
-import MarsBumpMap from '../../assets/mars/mars_bump.jpg';
-import MarsCloudsMap from '../../assets/mars/mars_clouds.jpg';
+import MarsNormalMap from '../../assets/mars/mars_normal.webp';
+import MarsColorlMap from '../../assets/mars/mars_map.webp';
+import MarsBumpMap from '../../assets/mars/mars_bump.webp';
+import MarsCloudsMap from '../../assets/mars/mars_clouds.webp';
 
 const Mars = () => {
     const [show, setShow] = useState(false);
@@ -40,11 +40,11 @@ const Mars = () => {
     return (
         <>
             <mesh ref={cloudRef} position={state.planets.mars.position}>
-                <sphereGeometry args={[0.751, 100, 100]} />
+                <sphereGeometry args={[0.905, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
             <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.mars.position}>
-                <sphereGeometry args={[0.75, 100, 100]} />
+                <sphereGeometry args={[0.9, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
                     map={colorlMap}

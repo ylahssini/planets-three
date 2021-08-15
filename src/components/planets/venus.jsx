@@ -6,10 +6,10 @@ import { Html } from '@react-three/drei';
 import { useRecoilState } from 'recoil';
 import Tooltip from '../tooltip';
 import { planetState } from '../../recoil/state';
-import VenusColorMap from '../../assets/venus/venus_map.jpg';
-import VenusNormalMap from '../../assets/venus/venus_normal.jpg';
-import VenusBumpMap from '../../assets/venus/venus_bump.jpg';
-import VenusCloudsMap from '../../assets/venus/venus_clouds.jpg';
+import VenusColorMap from '../../assets/venus/venus_map.webp';
+import VenusNormalMap from '../../assets/venus/venus_normal.webp';
+import VenusBumpMap from '../../assets/venus/venus_bump.webp';
+import VenusCloudsMap from '../../assets/venus/venus_clouds.webp';
 
 const Venus = () => {
     const [show, setShow] = useState(false);
@@ -41,11 +41,11 @@ const Venus = () => {
     return (
         <>
             <mesh ref={cloudRef} position={state.planets.venus.position}>
-                <sphereGeometry args={[0.802, 100, 100]} />
+                <sphereGeometry args={[0.602, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
             <mesh ref={venusRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.venus.position}>
-                <sphereGeometry args={[0.8, 100, 100]} />
+                <sphereGeometry args={[0.6, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
                     map={colorlMap}

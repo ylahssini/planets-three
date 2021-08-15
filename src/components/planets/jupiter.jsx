@@ -6,10 +6,10 @@ import { Html } from '@react-three/drei';
 import { useRecoilState } from 'recoil';
 import Tooltip from '../tooltip';
 import { planetState } from '../../recoil/state';
-import JupiterColorMap from '../../assets/jupiter/jupiter_map.jpg';
-import JupiterNormalMap from '../../assets/jupiter/jupiter_normal.jpg';
-import JupiterBumpMap from '../../assets/jupiter/jupiter_bump.jpg';
-import JupiterCloudsMap from '../../assets/jupiter/jupiter_clouds.jpg';
+import JupiterColorMap from '../../assets/jupiter/jupiter_map.webp';
+import JupiterNormalMap from '../../assets/jupiter/jupiter_normal.webp';
+import JupiterBumpMap from '../../assets/jupiter/jupiter_bump.webp';
+import JupiterCloudsMap from '../../assets/jupiter/jupiter_clouds.webp';
 
 const Jupiter = () => {
     const [show, setShow] = useState(false);
@@ -40,11 +40,11 @@ const Jupiter = () => {
     return (
         <>
             <mesh ref={cloudRef} position={state.planets.jupiter.position}>
-                <sphereGeometry args={[5.01, 100, 100]} />
+                <sphereGeometry args={[20.01, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
             <mesh ref={jupiterRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.jupiter.position}>
-                <sphereGeometry args={[5, 100, 100]} />
+                <sphereGeometry args={[20, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
                     map={colorlMap}
