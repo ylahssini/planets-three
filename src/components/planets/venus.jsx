@@ -53,7 +53,7 @@ const Venus = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={8}>
+                <Html distanceFactor={100}>
                     <Tooltip
                         title="الزهرة"
                         description="الزُّهَرَة هو ثاني كواكب المجموعة الشمسية من حيث المسافة بينه وبين الشمس. يبعد الزهرة عن الشمس نحو 108 مليون كيلومتر، ومدارها حول الشمس ليس دائريًا تمامًا"

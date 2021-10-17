@@ -4,6 +4,10 @@ export const planetState = atom({
     key: 'planets',
     default: {
         planets: {
+            mercury: {
+                camera: [-12, 0, 0],
+                position: [12, 0, 0],
+            },
             venus: {
                 camera: [-8, 0, 0],
                 position: [8, 0, 0],
@@ -19,11 +23,15 @@ export const planetState = atom({
             jupiter: {
                 camera: [30, 0, 0],
                 position: [-50, 0, 0]
+            },
+            saturn: {
+                camera: [90, 0, 0],
+                position: [-130, 0, 0]
             }
         },
         camera: {
-            name: 'earth',
-            position: [0, 0, 0],
+            name: 'saturn',
+            position: [90, 0, 0],
         },
     },
 });

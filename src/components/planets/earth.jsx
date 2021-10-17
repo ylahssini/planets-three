@@ -93,7 +93,7 @@ const Earth = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={10}>
+                <Html distanceFactor={100}>
                     <Tooltip
                         title="الأرض"
                         description="الأرض هي ثالث كواكب المجموعة الشمسية بعدًا عن الشمس بعد عطارد والزهرة، وتعتبر من أكبر الكواكب الأرضية وخامس أكبر الكواكب في النظام الشمسي"
@@ -103,8 +103,8 @@ const Earth = () => {
                 </Html>
             </mesh>
             <group ref={orbitRef}>
-                <mesh ref={moonRef} position={state.planets.earth.position} castShadow>
-                    <sphereGeometry args={[0.2, 100, 100]} receiveShadow castShadow />
+                <mesh ref={moonRef} position={state.planets.earth.position} receiveShadow castShadow>
+                    <sphereGeometry args={[0.2, 100, 100]} />
                     <meshPhysicalMaterial specular={moonBump} />
                     <meshStandardMaterial
                         map={moonMap}

@@ -52,7 +52,7 @@ const Jupiter = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={15}>
+                <Html distanceFactor={100}>
                     <Tooltip
                         title="المشتري"
                         description="المُشْتَرِي هو أضخم كواكب المجموعة الشمسية. سمي بالمشتري لأنه يستشري في سيره أي يلـجُّ ويمضي ويَـجِدُّ فيه بلا فتور ولا انكسار"

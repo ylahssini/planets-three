@@ -52,7 +52,7 @@ const Mars = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={8}>
+                <Html distanceFactor={100}>
                     <Tooltip
                         title="المريخ"
                         description="المِرِّيخ أو الكوكب الأحمر هو الكوكب الرابع من حيث البعد عن الشمس في النظام الشمسي وهو الجار الخارجي للأرض ويصنف كوكبا صخريا، من مجموعة الكواكب الأرضية"
