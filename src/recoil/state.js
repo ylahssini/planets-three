@@ -30,8 +30,8 @@ export const planetState = atom({
             }
         },
         camera: {
-            name: 'saturn',
-            position: [90, 0, 0],
+            name: 'earth',
+            position: [0, 0, 0],
         },
     },
 });
