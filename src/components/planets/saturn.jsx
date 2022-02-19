@@ -16,25 +16,22 @@ const generatedRings = () => {
     const rings = [];
 
     let start = 20;
-    let end = 30;
+    let end = 21;
 
     const mapColors = ['#655f45', '#d8ae6d', '#ffe1ab', '#dbb57c', '#b89c72'];
-    let step = 0;
 
     for (let i = 0; i < 20; i += 1) {
-        const index = i % 3 === 0 ? i : parseInt(i / 2, 10);
-        const color = darken(random(0.1, 0.2), mapColors[index] || mapColors[4]);
+        let indexColor = random(0, mapColors.length - 1);
+        const color = mapColors[indexColor];
 
         const difference = random(0.1, 0.8);
-        start = i === 0 ? start : step;
+        start = i === 0 ? start : end;
         end = start + difference;
 
         rings.push({
             args: [start, end, 100],
             color: color,
         });
-
-        step = end;
     }
 
     return rings;
@@ -94,8 +91,8 @@ const Saturn = () => {
             </mesh>
             {
                 rings.map((ring, i) => (
-                    <mesh key={i} position={[-130, 0, 0]} rotation={[-180, 0, 0]} receiveShadow>
-                        <ringBufferGeometry args={ring.args} />
+                    <mesh key={ring.color + i} position={state.planets.saturn.position} rotation={[-180, 0, 0]} receiveShadow>
+                        <ringGeometry args={ring.args} />
                         <meshBasicMaterial color={ring.color} side={THREE.DoubleSide} transparent opacity={0.75} />
                     </mesh>
                 ))
