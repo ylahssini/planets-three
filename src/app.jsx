@@ -1,8 +1,8 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useProgress, Html, OrbitControls } from '@react-three/drei';
-import { RecoilRoot } from 'recoil';
 import Wrapper from './components/wrapper';
+import Header from './components/header';
 import './app.scss';
 
 function CustomLoader() {
@@ -18,17 +18,18 @@ function CustomLoader() {
 const App = () => {
     return (
         <main>
+            <Header />
+
             <Canvas shadows>
                 <React.Suspense fallback={<CustomLoader />}>
-                    <RecoilRoot>
-                        <Wrapper />
-                        <Html position={[0, 0, 0]} className="instruction">
-                            <p>انقر فوق الكوكب للتركيز عليه أو انقر نقرًا مزدوجًا فوقه لإظهار المعلومات المتعلقة به.</p>
-                        </Html>
-                        <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
-                    </RecoilRoot>
+                    <Wrapper />
+                    <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
                 </React.Suspense>
             </Canvas>
+
+            <footer>
+                <span>من تصميم</span> <a href="https://ylahssini.vercel.app" target="_blank">يوسف الحسيني</a>
+            </footer>
         </main>
     );
 }

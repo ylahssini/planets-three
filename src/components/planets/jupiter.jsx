@@ -3,18 +3,19 @@ import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { Html } from '@react-three/drei';
-import { useRecoilState } from 'recoil';
+import { useStore } from '../../store';
 import Tooltip from '../tooltip';
-import { planetState } from '../../recoil/state';
 import JupiterColorMap from '../../assets/jupiter/jupiter_map.webp';
 import JupiterNormalMap from '../../assets/jupiter/jupiter_normal.webp';
 import JupiterBumpMap from '../../assets/jupiter/jupiter_bump.webp';
 import JupiterCloudsMap from '../../assets/jupiter/jupiter_clouds.webp';
 
+const selector = ({ planets, setCamera }) => ({ jupiter: planets.jupiter, setCamera });
+
 const Jupiter = () => {
     const [show, setShow] = useState(false);
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(TextureLoader, [JupiterColorMap, JupiterBumpMap, JupiterNormalMap, JupiterCloudsMap]);
-    const [state, setState] = useRecoilState(planetState)
+    const { jupiter, setCamera } = useStore(selector);
     const jupiterRef = useRef();
     const cloudRef = useRef();
 
@@ -27,23 +28,16 @@ const Jupiter = () => {
     });
 
     function handleGo() {
-        setState((s) => ({
-            ...s,
-            camera: {
-                ...s.camera,
-                name: 'jupiter',
-                position: state.planets.jupiter.camera,
-            },
-        }));
+        setCamera('jupiter');
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={state.planets.jupiter.position}>
+            <mesh ref={cloudRef} position={jupiter.position}>
                 <sphereGeometry args={[20.01, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
-            <mesh ref={jupiterRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.jupiter.position}>
+            <mesh ref={jupiterRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={jupiter.position}>
                 <sphereGeometry args={[20, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial

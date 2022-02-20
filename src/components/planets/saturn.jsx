@@ -2,11 +2,9 @@ import React, { useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { useRecoilState } from 'recoil';
+import { useStore } from '../../store';
 import random from 'lodash.random';
-import darken from 'polished/lib/color/darken';
 import Tooltip from '../tooltip';
-import { planetState } from '../../recoil/state';
 import SaturnColorMap from '../../assets/saturn/saturn_map.webp';
 import SaturnNormalMap from '../../assets/saturn/saturn_normal.webp';
 import SaturnBumpMap from '../../assets/saturn/saturn_bump.webp';
@@ -18,7 +16,7 @@ const generatedRings = () => {
     let start = 20;
     let end = 21;
 
-    const mapColors = ['#655f45', '#d8ae6d', '#ffe1ab', '#dbb57c', '#b89c72'];
+    const mapColors = [0x655f45, 0xd8ae6d, 0xffe1ab, 0xdbb57c, 0xb89c72];
 
     for (let i = 0; i < 20; i += 1) {
         let indexColor = random(0, mapColors.length - 1);
@@ -39,10 +37,12 @@ const generatedRings = () => {
 
 const rings = generatedRings();
 
+const selector = ({ planets, setCamera }) => ({ saturn: planets.saturn, setCamera });
+
 const Saturn = () => {
     const [show, setShow] = useState(false);
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [SaturnColorMap, SaturnBumpMap, SaturnNormalMap, SaturnCloudsMap]);
-    const [state, setState] = useRecoilState(planetState)
+    const { saturn, setCamera } = useStore(selector);
     const saturnRef = useRef();
     const cloudRef = useRef();
 
@@ -55,24 +55,17 @@ const Saturn = () => {
     });
 
     function handleGo() {
-        setState((s) => ({
-            ...s,
-            camera: {
-                ...s.camera,
-                name: 'saturn',
-                position: state.planets.saturn.camera,
-            },
-        }));
+        setCamera('saturn');
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={state.planets.saturn.position}>
-                <sphereGeometry args={[16.01, 100, 100]} />
+            <mesh ref={cloudRef} position={saturn.position} castShadow>
+                <sphereGeometry args={[16.01, 100, 100]} castShadow />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
             </mesh>
-            <mesh ref={saturnRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.saturn.position}>
-                <sphereGeometry args={[16, 100, 100]} />
+            <mesh ref={saturnRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={saturn.position} castShadow>
+                <sphereGeometry args={[16, 100, 100]} castShadow />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
                     map={colorlMap}
@@ -91,9 +84,9 @@ const Saturn = () => {
             </mesh>
             {
                 rings.map((ring, i) => (
-                    <mesh key={ring.color + i} position={state.planets.saturn.position} rotation={[-180, 0, 0]} receiveShadow>
+                    <mesh key={ring.color + i} position={saturn.position} rotation={[-180, 0, 0]} receiveShadow castShadow>
                         <ringGeometry args={ring.args} />
-                        <meshBasicMaterial color={ring.color} side={THREE.DoubleSide} transparent opacity={0.75} />
+                        <meshBasicMaterial color={ring.color} side={THREE.DoubleSide} transparent opacity={0.5} />
                     </mesh>
                 ))
             }

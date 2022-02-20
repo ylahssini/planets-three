@@ -3,17 +3,18 @@ import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { Html } from '@react-three/drei';
-import { useRecoilState } from 'recoil';
+import { useStore } from '../../store';
 import Tooltip from '../tooltip';
-import { planetState } from '../../recoil/state';
 import MercuryColorMap from '../../assets/mercury/mercury_map.webp';
 import MercuryNormalMap from '../../assets/mercury/mercury_normal.webp';
 import MercuryBumpMap from '../../assets/mercury/mercury_bump.webp';
 
+const selector = ({ planets, setCamera }) => ({ mercury: planets.mercury, setCamera });
+
 const Mercury = () => {
     const [show, setShow] = useState(false);
     const [colorlMap, bumpMap, normalMap] = useLoader(TextureLoader, [MercuryColorMap, MercuryBumpMap, MercuryNormalMap]);
-    const [state, setState] = useRecoilState(planetState)
+    const { mercury, setCamera } = useStore(selector);
     const mercuryRef = useRef();
 
     useFrame(({ clock }) => {
@@ -24,19 +25,12 @@ const Mercury = () => {
     });
 
     function handleGo() {
-        setState((s) => ({
-            ...s,
-            camera: {
-                ...s.camera,
-                name: 'mercury',
-                position: state.planets.mercury.camera,
-            },
-        }));
+        setCamera('mercury');
     }
 
     return (
         <>
-            <mesh ref={mercuryRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.mercury.position}>
+            <mesh ref={mercuryRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={mercury.position}>
                 <sphereGeometry args={[0.4, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial

@@ -3,18 +3,19 @@ import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { Html } from '@react-three/drei';
-import { useRecoilState } from 'recoil';
+import { useStore } from '../../store';
 import Tooltip from '../tooltip';
-import { planetState } from '../../recoil/state';
 import MarsNormalMap from '../../assets/mars/mars_normal.webp';
 import MarsColorlMap from '../../assets/mars/mars_map.webp';
 import MarsBumpMap from '../../assets/mars/mars_bump.webp';
 import MarsCloudsMap from '../../assets/mars/mars_clouds.webp';
 
+const selector = ({ planets, setCamera }) => ({ mars: planets.mars, setCamera });
+
 const Mars = () => {
     const [show, setShow] = useState(false);
     const [normalMap, colorlMap, bumpMap, cloudMap] = useLoader(TextureLoader, [MarsNormalMap, MarsColorlMap, MarsBumpMap, MarsCloudsMap]);
-    const [state, setState] = useRecoilState(planetState)
+    const { mars, setCamera } = useStore(selector)
     const marsRef = useRef();
     const cloudRef = useRef();
 
@@ -27,23 +28,16 @@ const Mars = () => {
     });
 
     function handleGo() {
-        setState((s) => ({
-            ...s,
-            camera: {
-                ...s.camera,
-                name: 'mars',
-                position: state.planets.mars.camera,
-            },
-        }));
+        setCamera('mars');
     }
 
     return (
         <>
-            <mesh ref={cloudRef} position={state.planets.mars.position}>
+            <mesh ref={cloudRef} position={mars.position}>
                 <sphereGeometry args={[0.905, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
-            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={state.planets.mars.position}>
+            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={mars.position}>
                 <sphereGeometry args={[0.9, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial

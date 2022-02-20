@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Stars, PerspectiveCamera } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRecoilState } from 'recoil';
-import { planetState } from '../recoil/state';
+import { useStore } from '../store';
 import Mercury from './planets/mercury';
 import Venus from './planets/venus';
 import Earth from './planets/earth';
@@ -10,14 +9,20 @@ import Mars from './planets/mars';
 import Jupiter from './planets/jupiter';
 import Saturn from './planets/saturn';
 
+const selector = ({ planets, camera, setLoading }) => ({ planets, camera, setLoading });
+
 const Wrapper = () => {
-    const [state] = useRecoilState(planetState);
+    const { planets, camera, setLoading } = useStore(selector);
     const cameraRef = useRef();
+
+    useEffect(() => {
+        setLoading(false);
+    }, [setLoading]);
 
     useFrame(() => {
         if (cameraRef.current) {
-            const [ox, oy, oz] = state.planets[state.camera.name].camera;
-            const [cx, cy, cz] = state.camera.position;
+            const [, oy, oz] = planets[camera.name].camera;
+            const [cx, cy, cz] = camera.position;
             const [rx, ry, rz] = Object.values(cameraRef.current.position);
             let speed = 1;
 
@@ -51,7 +56,6 @@ const Wrapper = () => {
                 position={[30, 0, 0]}
                 intensity={1}
                 castShadow
-                
             />
             <Mercury />
             <Venus />
