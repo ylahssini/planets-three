@@ -16,7 +16,7 @@ export default {
     ],
     optimize: {
         /* Example: Bundle your final build: */
-        bundle: true,
+        bundle: false,
         minify: true,
         target: 'es2020',
     },
