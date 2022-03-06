@@ -1,21 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { TextureLoader } from 'three';
-import { Html } from '@react-three/drei';
 import { useStore } from '../../store';
-import Tooltip from '../tooltip';
+import useOrbit from '../../hooks/useOrbit';
 import MarsNormalMap from '../../assets/mars/mars_normal.webp';
 import MarsColorlMap from '../../assets/mars/mars_map.webp';
 import MarsBumpMap from '../../assets/mars/mars_bump.webp';
 import MarsCloudsMap from '../../assets/mars/mars_clouds.webp';
 
-const selector = ({ planets, setCamera }) => ({ mars: planets.mars, setCamera });
+const selector = ({ planets, setCamera }) => ({ sun: planets.sun, setCamera });
 
 const Mars = () => {
-    const [show, setShow] = useState(false);
-    const [normalMap, colorlMap, bumpMap, cloudMap] = useLoader(TextureLoader, [MarsNormalMap, MarsColorlMap, MarsBumpMap, MarsCloudsMap]);
-    const { mars, setCamera } = useStore(selector)
+    const [normalMap, colorlMap, bumpMap, cloudMap] = useLoader(THREE.TextureLoader, [MarsNormalMap, MarsColorlMap, MarsBumpMap, MarsCloudsMap]);
+    const { sun, setCamera } = useStore(selector);
+    const orbitRef = useOrbit({ radius: 94, speed: 0.1 });
     const marsRef = useRef();
     const cloudRef = useRef();
 
@@ -32,12 +30,12 @@ const Mars = () => {
     }
 
     return (
-        <>
-            <mesh ref={cloudRef} position={mars.position}>
+        <group ref={orbitRef} name="mars">
+            <mesh ref={cloudRef} position={sun.position}>
                 <sphereGeometry args={[0.905, 100, 100]} />
                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
             </mesh>
-            <mesh ref={marsRef} onClick={handleGo} onDoubleClick={() => setShow(true)} position={mars.position}>
+            <mesh ref={marsRef} onClick={handleGo} position={sun.position}>
                 <sphereGeometry args={[0.9, 100, 100]} />
                 <meshPhongMaterial specular={bumpMap} />
                 <meshStandardMaterial
@@ -46,16 +44,8 @@ const Mars = () => {
                     bumpMap={bumpMap}
                     side={THREE.DoubleSide}
                 />
-                <Html distanceFactor={100}>
-                    <Tooltip
-                        title="المريخ"
-                        description="المِرِّيخ أو الكوكب الأحمر هو الكوكب الرابع من حيث البعد عن الشمس في النظام الشمسي وهو الجار الخارجي للأرض ويصنف كوكبا صخريا، من مجموعة الكواكب الأرضية"
-                        show={show}
-                        handleHide={() => setShow(false)}
-                    />
-                </Html>
             </mesh>
-        </>
+        </group>
     )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useProgress, Html, OrbitControls } from '@react-three/drei';
+import { useProgress, Html } from '@react-three/drei';
 import Wrapper from './components/wrapper';
 import Header from './components/header';
 import './app.scss';
@@ -23,7 +23,6 @@ const App = () => {
             <Canvas shadows>
                 <React.Suspense fallback={<CustomLoader />}>
                     <Wrapper />
-                    <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
                 </React.Suspense>
             </Canvas>
 

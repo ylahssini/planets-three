@@ -2,6 +2,10 @@ import create from 'zustand';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 const planets = {
+    sun: {
+        camera: [-80, 0, 0],
+        position: [80, 0, 0],
+    },
     mercury: {
         camera: [-12, 0, 0],
         position: [12, 0, 0],
@@ -24,7 +28,7 @@ const planets = {
     },
     saturn: {
         camera: [90, 0, 0],
-        position: [-130, 0, 0]
+        position: [-130, 0, 0],
     }
 };
 
@@ -32,9 +36,11 @@ export const useStore = create((set) => ({
     loading: true,
     planets,
     camera: {
-        name: 'earth',
-        position: [0, 0, 0],
+        name: 'sun',
+        position: planets.sun.camera,
     },
+    target: null,
+    setTarget: (target) => set({ target }),
     setLoading: (loading) => set(() => ({ loading })),
     setCamera: (planet) => set((state) => ({ camera: {
         ...state.camera,

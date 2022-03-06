@@ -28,12 +28,12 @@ const Header = () => {
         return (
             <header>
                 <h1>النظام الشمسي</h1>
-                <Select
+                { /* <Select
                     data={planets}
                     isRtl
                     placeholder="حدد الكوكب"
                     handleChange={handleChange}
-                />
+                /> */ }
             </header>
         );
     }

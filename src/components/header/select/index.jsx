@@ -7,14 +7,16 @@ const Select = ({ placeholder, data = [], isRtl, value, handleChange }) => {
     const select = useRef(null);
 
     useEffect(() => {
-        document.addEventListener('click', (event) => {
+        const handleClick = (event) => {
             if (!event.target.className.includes('select-selected')) {
                 setShowDropdown(false);
             }
-        });
+        }
+
+        document.addEventListener('click', handleClick);
 
         return () => {
-            document.removeEventListener('click');
+            document.removeEventListener('click', handleClick);
         }
     }, []);
 
