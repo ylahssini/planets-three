@@ -6,13 +6,20 @@ import Header from './components/header';
 import './app.scss';
 
 function CustomLoader() {
-    const { progress } = useProgress()
+    const { progress } = useProgress();
+    const roundedProgress = Math.round(progress);
 
+    console.log(roundedProgress);
     return (
         <Html center>
-            <span className="loading">{Math.round(progress)}% تحميل... </span>
+            <div className="loading">
+                <p>المرجو إستعمال الحاسوب لتجربةٍ أفضل</p>
+                <footer className="loading-progress">
+                    <div className="loading-progress--percentage" style={{ width: `${roundedProgress}%` }}>{roundedProgress}%</div>
+                </footer>
+            </div>
         </Html>
-    )
+    );
 }
 
 const App = () => {
@@ -32,10 +39,10 @@ const App = () => {
             </Canvas>
 
             <footer>
-                <span>من تصميم</span> <a href="https://ylahssini.vercel.app" target="_blank">يوسف الحسيني</a>
+                <span>من تصميم</span> <a href="https://ylahssini.vercel.app" target="_blank" rel="noreferrer">يوسف الحسيني</a>
             </footer>
         </main>
     );
-}
+};
 
 export default App;
