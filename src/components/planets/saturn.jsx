@@ -1,49 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import random from 'lodash.random';
 import useOrbit from '../../hooks/useOrbit';
+import useRings from '../../hooks/useRings';
 import { useStore } from '../../store';
 import SaturnColorMap from '../../assets/saturn/saturn_map.webp';
 import SaturnNormalMap from '../../assets/saturn/saturn_normal.webp';
 import SaturnBumpMap from '../../assets/saturn/saturn_bump.webp';
 import SaturnCloudsMap from '../../assets/saturn/saturn_clouds.webp';
 
-const generatedRings = () => {
-    const rings = [];
-
-    let start = 20;
-    let end = 21;
-
-    const mapColors = [0x655f45, 0xd8ae6d, 0xffe1ab, 0xdbb57c, 0xb89c72];
-
-    for (let i = 0; i < 20; i += 1) {
-        let indexColor = random(0, mapColors.length - 1);
-        const color = mapColors[indexColor];
-
-        const difference = random(0.1, 0.8);
-        start = i === 0 ? start : end;
-        end = start + difference;
-
-        rings.push({
-            args: [start, end, 100],
-            color: color,
-        });
-    }
-
-    return rings;
-};
-
-const rings = generatedRings();
-
-const selector = ({ planets, setCamera }) => ({ sun: planets.sun, setCamera });
+const selector = ({ sun, target}) => ({ sun, target });
 
 const Saturn = () => {
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [SaturnColorMap, SaturnBumpMap, SaturnNormalMap, SaturnCloudsMap]);
-    const { sun, setCamera } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 180, speed: 0.025 });
+    const { sun, target } = useStore(selector);
+    const orbitRef = useOrbit({ radius: 220, speed: 0.07, enabled: target === '' });
     const saturnRef = useRef();
     const cloudRef = useRef();
+    const rings = useRings({
+        colors: [0x655f45, 0xd8ae6d, 0xffe1ab, 0xdbb57c, 0xb89c72],
+        start: 20,
+        end: 21,
+    });
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
@@ -53,34 +31,38 @@ const Saturn = () => {
         }
     });
 
-    function handleGo() {
-        setCamera('saturn');
-    }
-
     return (
         <group ref={orbitRef} name="saturn">
-            <mesh ref={cloudRef} position={sun.position} castShadow>
-                <sphereGeometry args={[16.01, 100, 100]} castShadow />
-                <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
-            </mesh>
-            <mesh ref={saturnRef} onClick={handleGo} position={sun.position} castShadow>
-                <sphereGeometry args={[16, 100, 100]} castShadow />
-                <meshPhongMaterial specular={bumpMap} />
-                <meshStandardMaterial
-                    map={colorlMap}
-                    normalMap={normalMap}
-                    bumpMap={bumpMap}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
-            {
-                rings.map((ring, i) => (
-                    <mesh key={ring.color + i} position={sun.position} rotation={[-90, 0, 0]} receiveShadow>
-                        <ringGeometry args={ring.args} />
-                        <meshBasicMaterial color={ring.color} side={THREE.DoubleSide} transparent opacity={0.5} />
-                    </mesh>
-                ))
-            }
+            <>
+                {
+                    ['saturn', ''].includes(target) ? (
+                        <>
+                            <mesh ref={cloudRef} position={sun.position} castShadow>
+                                <sphereGeometry args={[16.01, 100, 100]} />
+                                <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
+                            </mesh>
+                            <mesh ref={saturnRef} position={sun.position} castShadow>
+                                <sphereGeometry args={[16, 100, 100]} />
+                                <meshPhongMaterial specular={bumpMap} />
+                                <meshStandardMaterial
+                                    map={colorlMap}
+                                    normalMap={normalMap}
+                                    bumpMap={bumpMap}
+                                    side={THREE.DoubleSide}
+                                />
+                            </mesh>
+                            {
+                                rings.map((ring, i) => (
+                                    <mesh key={ring.color + i} position={sun.position} rotation={[-30, 0.1, 0]} receiveShadow>
+                                        <ringGeometry args={ring.args} />
+                                        <meshStandardMaterial attach="material" color={ring.color} side={THREE.DoubleSide} opacity={0.85} />
+                                    </mesh>
+                                ))
+                            }
+                        </>
+                    ) : null
+                }
+            </>
         </group>
     )
 }

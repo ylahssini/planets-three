@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-export default function useOrbit({ radius = 1, speed = 1 }) {
+export default function useOrbit({ radius = 1, speed = 1, enabled = true }) {
     const ref = useRef(null);
     const index = useRef(0);
 
     useFrame(() => {
-        if (ref.current) {
+        if (ref.current && enabled) {
             const points = 400;
             const angle = (index.current / points) * 2 * Math.PI;
             const x = radius * Math.cos(angle);

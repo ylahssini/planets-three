@@ -2,38 +2,29 @@ import React, { useMemo } from 'react';
 import Select from './select';
 import { useStore } from '../../store';
 
-const selector = ({ loading, setCamera }) => ({ loading, setCamera });
-
-const planetsLabel = {
-    mercury: 'عطارد',
-    venus: 'الزهرة',
-    earth: 'الأرض',
-    mars: 'المريخ',
-    jupiter: 'المشتري',
-    saturn: 'زحل',
-};
+const selector = ({ loading, planets, setTarget }) => ({ loading, planets, setTarget });
 
 const Header = () => {
-    const { loading, setCamera } = useStore(selector);
+    const { loading, planets, setTarget } = useStore(selector);
 
-    const planets = useMemo(() => (
-        Object.entries(planetsLabel).map(([value, label]) => ({ value, label }))
+    const data = useMemo(() => (
+        Object.entries(planets).map(([value, planet]) => ({ value, label: planet.title.ar }))
     ), []);
 
     function handleChange(item) {
-        setCamera(item.value);
+        setTarget(item.value);
     }
 
     if (!loading) {
         return (
             <header>
                 <h1>النظام الشمسي</h1>
-                { /* <Select
-                    data={planets}
+                <Select
+                    data={data}
                     isRtl
                     placeholder="حدد الكوكب"
                     handleChange={handleChange}
-                /> */ }
+                />
             </header>
         );
     }

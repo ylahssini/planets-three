@@ -12,13 +12,13 @@ import MoonMap from '../../assets/earth/moon_map.webp';
 import MoonNormal from '../../assets/earth/moon_normal.webp';
 import MoonBump from '../../assets/earth/moon_bump.webp';
 
-const selector = ({ planets, setCamera }) => ({ sun: planets.sun, setCamera });
+const selector = ({ sun, target }) => ({ sun, target });
 
 const Earth = () => {
     const [normalMap, colorMap, bumpMap, cloudMap, moonMap, moonNormal, moonBump] = useLoader(THREE.TextureLoader, [EarthNormalMap, EarthDayColorMap, EarthBumpMap, EarthCloudsMap, MoonMap, MoonNormal, MoonBump]);
+    const { sun, target } = useStore(selector);
     const orbitMoonRef = useOrbit({ radius: 2.8 });
-    const orbitEarthRef = useOrbit({ radius: 80, speed: 0.25 });
-    const { sun, setCamera } = useStore(selector);
+    const orbitEarthRef = useOrbit({ radius: 125, speed: 0.15, enabled: target === '' });
     const earthRef = useRef();
     const cloudRef = useRef();
     const moonRef = useRef();
@@ -32,44 +32,40 @@ const Earth = () => {
         }
     });
 
-    function handleGo() {
-        setCamera('earth');
-    }
-
     return (
         <group ref={orbitEarthRef} name="earth">
-            <mesh ref={cloudRef} position={sun.position} castShadow>
-                <sphereGeometry args={[1.51, 100, 100]} castShadow />
-                <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
-            </mesh>
-            <mesh
-                ref={earthRef}
-                position={sun.position}
-                rotation={[0, 0, 0.3]}
-                onClick={handleGo}
-                castShadow
-            >
-                <sphereGeometry args={[1.5, 100, 100]} castShadow />
-                <meshPhysicalMaterial specular={bumpMap} />
-                <meshStandardMaterial
-                    map={colorMap}
-                    normalMap={normalMap}
-                    bumpMap={bumpMap}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
-            <group ref={orbitMoonRef}>
-                <mesh ref={moonRef} position={sun.position} receiveShadow castShadow>
-                    <sphereGeometry args={[0.2, 100, 100]} />
-                    <meshPhysicalMaterial specular={moonBump} />
-                    <meshStandardMaterial
-                        map={moonMap}
-                        normalMap={moonNormal}
-                        bumpMap={moonBump}
-                        side={THREE.DoubleSide}
-                    />
-                </mesh>
-            </group>
+            {
+                ['earth', ''].includes(target) ? (
+                    <>
+                        <mesh ref={cloudRef} position={sun.position} castShadow>
+                            <sphereGeometry args={[1.51, 100, 100]} />
+                            <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
+                        </mesh>
+                        <mesh ref={earthRef} position={sun.position} rotation={[0, 0, 0.3]} castShadow>
+                            <sphereGeometry args={[1.5, 100, 100]} />
+                            <meshPhysicalMaterial specular={bumpMap} />
+                            <meshStandardMaterial
+                                map={colorMap}
+                                normalMap={normalMap}
+                                bumpMap={bumpMap}
+                                side={THREE.DoubleSide}
+                            />
+                        </mesh>
+                        <group ref={orbitMoonRef}>
+                            <mesh ref={moonRef} position={sun.position} receiveShadow castShadow>
+                                <sphereGeometry args={[0.2, 100, 100]} />
+                                <meshPhysicalMaterial specular={moonBump} />
+                                <meshStandardMaterial
+                                    map={moonMap}
+                                    normalMap={moonNormal}
+                                    bumpMap={moonBump}
+                                    side={THREE.DoubleSide}
+                                />
+                            </mesh>
+                        </group>
+                    </>
+                ) : null
+            }
         </group>
     )
 };

@@ -20,7 +20,12 @@ const App = () => {
         <main>
             <Header />
 
-            <Canvas shadows>
+            <Canvas
+                shadows
+                gl={{ alpha: false }}
+                dpr={[1, 1.5]}
+                camera={{ fov: 40, position: [-80, 0, 0] }}
+            >
                 <React.Suspense fallback={<CustomLoader />}>
                     <Wrapper />
                 </React.Suspense>

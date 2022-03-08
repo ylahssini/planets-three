@@ -8,12 +8,12 @@ import MarsColorlMap from '../../assets/mars/mars_map.webp';
 import MarsBumpMap from '../../assets/mars/mars_bump.webp';
 import MarsCloudsMap from '../../assets/mars/mars_clouds.webp';
 
-const selector = ({ planets, setCamera }) => ({ sun: planets.sun, setCamera });
+const selector = ({ sun, target }) => ({ sun, target });
 
 const Mars = () => {
     const [normalMap, colorlMap, bumpMap, cloudMap] = useLoader(THREE.TextureLoader, [MarsNormalMap, MarsColorlMap, MarsBumpMap, MarsCloudsMap]);
-    const { sun, setCamera } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 94, speed: 0.1 });
+    const { sun, target } = useStore(selector);
+    const orbitRef = useOrbit({ radius: 140, speed: 0.1, enabled: target === '' });
     const marsRef = useRef();
     const cloudRef = useRef();
 
@@ -25,26 +25,28 @@ const Mars = () => {
         }
     });
 
-    function handleGo() {
-        setCamera('mars');
-    }
-
     return (
         <group ref={orbitRef} name="mars">
-            <mesh ref={cloudRef} position={sun.position}>
-                <sphereGeometry args={[0.905, 100, 100]} />
-                <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
-            </mesh>
-            <mesh ref={marsRef} onClick={handleGo} position={sun.position}>
-                <sphereGeometry args={[0.9, 100, 100]} />
-                <meshPhongMaterial specular={bumpMap} />
-                <meshStandardMaterial
-                    map={colorlMap}
-                    normalMap={normalMap}
-                    bumpMap={bumpMap}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
+            {
+                ['mars', ''].includes(target) ? (
+                    <>
+                        <mesh ref={cloudRef} position={sun.position}>
+                            <sphereGeometry args={[0.505, 100, 100]} />
+                            <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
+                        </mesh>
+                        <mesh ref={marsRef} position={sun.position}>
+                            <sphereGeometry args={[0.5, 100, 100]} />
+                            <meshPhongMaterial specular={bumpMap} />
+                            <meshStandardMaterial
+                                map={colorlMap}
+                                normalMap={normalMap}
+                                bumpMap={bumpMap}
+                                side={THREE.DoubleSide}
+                            />
+                        </mesh>
+                    </>
+                ) : null
+            }
         </group>
     )
 }

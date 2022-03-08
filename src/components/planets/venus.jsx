@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useStore } from '../../store';
@@ -8,14 +8,14 @@ import VenusNormalMap from '../../assets/venus/venus_normal.webp';
 import VenusBumpMap from '../../assets/venus/venus_bump.webp';
 import VenusCloudsMap from '../../assets/venus/venus_clouds.webp';
 
-const selector = ({ planets, setCamera }) => ({ sun: planets.sun, setCamera });
+const selector = ({ sun, target}) => ({ sun, target });
 
 const Venus = () => {
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [VenusColorMap, VenusBumpMap, VenusNormalMap, VenusCloudsMap]);
-    const { sun, setCamera } = useStore(selector);
+    const { sun, target } = useStore(selector);
     const venusRef = useRef();
     const cloudRef = useRef();
-    const orbitRef = useOrbit({ radius: 60, speed: 0.45 })
+    const orbitRef = useOrbit({ radius: 100, speed: 0.17, enabled: target === '' });
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
@@ -25,26 +25,28 @@ const Venus = () => {
         }
     });
 
-    function handleGo() {
-        setCamera('venus')
-    }
-
     return (
         <group ref={orbitRef} name="venus">
-            <mesh ref={cloudRef} position={sun.position}>
-                <sphereGeometry args={[0.602, 100, 100]} />
-                <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
-            </mesh>
-            <mesh ref={venusRef} onClick={handleGo} position={sun.position}>
-                <sphereGeometry args={[0.6, 100, 100]} />
-                <meshPhongMaterial specular={bumpMap} />
-                <meshStandardMaterial
-                    map={colorlMap}
-                    normalMap={normalMap}
-                    bumpMap={bumpMap}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
+            {
+                ['venus', ''].includes(target) ? (
+                    <>
+                        <mesh ref={cloudRef} position={sun.position}>
+                            <sphereGeometry args={[1.402, 100, 100]} />
+                            <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
+                        </mesh>
+                        <mesh ref={venusRef} position={sun.position}>
+                            <sphereGeometry args={[1.4, 100, 100]} />
+                            <meshPhongMaterial specular={bumpMap} />
+                            <meshStandardMaterial
+                                map={colorlMap}
+                                normalMap={normalMap}
+                                bumpMap={bumpMap}
+                                side={THREE.DoubleSide}
+                            />
+                        </mesh>
+                    </>
+                ) : null
+            }
         </group>
     )
 }
