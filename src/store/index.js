@@ -2,7 +2,6 @@ import create from 'zustand';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export const useStore = create((set) => ({
-    loading: true,
     sun: { position: [80, 0, 0] },
     planets: {
         mercury: {
@@ -31,24 +30,30 @@ export const useStore = create((set) => ({
             title: { ar: 'المشتري', en: 'Jupiter' },
         },
         saturn: {
-            radiusX: 220,
+            radiusX: 230,
             fov: 35,
             title: { ar: 'زحل', en: 'Saturn' },
         },
         uranus: {
-            radiusX: 250,
+            radiusX: 260,
             fov: 20,
             title: { ar: 'أورانوس', en: 'Uranus' },
         },
         neptune: {
-            radiusX: 280,
+            radiusX: 290,
             fov: 20,
             title: { ar: 'نبتون', en: 'Neptune' },
         },
     },
+
     target: '',
     setTarget: (target) => set({ target }),
+
+    loading: true,
     setLoading: (loading) => set(() => ({ loading })),
+
+    free_mode: false,
+    setFreeMode: (free_mode) => set(() => ({ free_mode })),
 }));
 
 mountStoreDevtool('store', useStore);

@@ -1,0 +1,10 @@
+.side {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 1.2em;
+}

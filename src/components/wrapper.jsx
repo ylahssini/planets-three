@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Stars, PerspectiveCamera, OrbitControls } from '@react-three/drei';
+import { Stars, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStore } from '../store';
@@ -13,10 +13,10 @@ import Saturn from './planets/saturn';
 import Uranus from './planets/uranus';
 import Neptune from './planets/neptune';
 
-const selector = ({ setLoading, target, planets }) => ({ setLoading, target, planets });
+const selector = ({ setLoading, target, planets, free_mode }) => ({ setLoading, target, planets, free_mode });
 
 const Wrapper = ({ v = new THREE.Vector3() }) => {
-    const { setLoading, target, planets } = useStore(selector);
+    const { setLoading, target, planets, free_mode } = useStore(selector);
     const solarSystem = useRef();
     const planet = useRef();
 
@@ -28,14 +28,14 @@ const Wrapper = ({ v = new THREE.Vector3() }) => {
         planet.current = target ? solarSystem.current?.getObjectByName(target) : null;
     });
 
-    useFrame(({ camera }) => {
+    useFrame(({ camera }) => {
         if (planet.current && target !== '') {
             camera.fov = THREE.MathUtils.lerp(camera.fov, planets[target].fov, 0.05);
 
             const selectedPosition = planet.current.position;
             camera.position.lerp(v.set(selectedPosition.x, selectedPosition.y, selectedPosition.z), 0.05);
             camera.lookAt(planets[target].radiusX, selectedPosition.y, selectedPosition.z);
-        } else {
+        } else if (!free_mode) {
             camera.fov = THREE.MathUtils.lerp(camera.fov, 40, 0.05);
             camera.position.lerp(v.set(-80, 0, 0), 0.05);
             camera.lookAt(0, 0, 0);
@@ -68,7 +68,7 @@ const Wrapper = ({ v = new THREE.Vector3() }) => {
                 <Neptune />
             </group>
         </>
-    )
+    );
 };
 
 export default Wrapper;

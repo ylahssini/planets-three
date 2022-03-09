@@ -48,7 +48,7 @@ const Mars = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Mars;

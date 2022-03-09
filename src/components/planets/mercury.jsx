@@ -41,7 +41,7 @@ const Mercury = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Mercury;

@@ -12,7 +12,7 @@ const Uranus = () => {
     const [colorlMap, bumpMap] = useLoader(THREE.TextureLoader, [UranusColorMap, UranusBumpMap]);
     const { sun, target } = useStore(selector);
     const uranusRef = useRef();
-    const orbitRef = useOrbit({ radius: 250, speed: 0.025, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 260, speed: 0.025, enabled: target === '' });
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
@@ -36,7 +36,7 @@ const Uranus = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Uranus;

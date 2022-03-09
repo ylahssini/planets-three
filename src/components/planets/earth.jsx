@@ -67,7 +67,7 @@ const Earth = () => {
                 ) : null
             }
         </group>
-    )
+    );
 };
 
 export default Earth;

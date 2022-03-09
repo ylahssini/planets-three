@@ -48,7 +48,7 @@ const Jupiter = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Jupiter;

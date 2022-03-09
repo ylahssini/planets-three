@@ -48,7 +48,7 @@ const Venus = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Venus;

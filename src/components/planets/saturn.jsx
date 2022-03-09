@@ -14,7 +14,7 @@ const selector = ({ sun, target}) => ({ sun, target });
 const Saturn = () => {
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [SaturnColorMap, SaturnBumpMap, SaturnNormalMap, SaturnCloudsMap]);
     const { sun, target } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 220, speed: 0.07, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 230, speed: 0.07, enabled: target === '' });
     const saturnRef = useRef();
     const cloudRef = useRef();
     const rings = useRings({
@@ -64,7 +64,7 @@ const Saturn = () => {
                 }
             </>
         </group>
-    )
-}
+    );
+};
 
 export default Saturn;

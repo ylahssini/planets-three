@@ -13,7 +13,7 @@ const Neptune = () => {
     const [colorlMap, bumpMap, normalMap] = useLoader(THREE.TextureLoader, [NeptuneColorMap, NeptuneBumpMap, NeptuneNormalMap]);
     const { sun, target } = useStore(selector);
     const neptuneRef = useRef();
-    const orbitRef = useOrbit({ radius: 280, speed: 0.01, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 290, speed: 0.01, enabled: target === '' });
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
@@ -39,7 +39,7 @@ const Neptune = () => {
                 ) : null
             }
         </group>
-    )
-}
+    );
+};
 
 export default Neptune;

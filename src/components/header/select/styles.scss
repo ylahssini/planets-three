@@ -1,13 +1,15 @@
 .custom-select {
-    position: fixed;
-    top: 1em;
-    left: 1em;
-    z-index: 9;
     font-family: "Cairo", sans-serif;
     width: 200px;
+    position: relative;
+    transition: opacity .2s ease-in-out;
 
     select {
         display: none;
+    }
+
+    &.__disabled {
+        opacity: 0.5;
     }
 }
 
@@ -31,6 +33,10 @@
         padding: 3px;
         transform: rotate(45deg);
         transition: all .2s ease-in-out;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
     }
 
     &.__rtl {
