@@ -17,7 +17,7 @@ const Uranus = () => {
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (uranusRef.current) {
-            uranusRef.current.rotation.y = elapsed / 3.5 * -1;
+            uranusRef.current.rotation.y = elapsed / 6;
         }
     });
 
@@ -25,7 +25,7 @@ const Uranus = () => {
         <group ref={orbitRef} name="uranus">
             {
                 ['uranus', ''].includes(target) ? (
-                    <mesh ref={uranusRef} position={sun.position}>
+                    <mesh ref={uranusRef} position={sun.position} rotation={[0.978, 0, 0]}>
                         <sphereBufferGeometry args={[8, 200, 200]} />
                         <meshPhongMaterial specular={bumpMap} />
                         <meshStandardMaterial

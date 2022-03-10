@@ -20,8 +20,8 @@ const Mars = () => {
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (marsRef.current) {
-            marsRef.current.rotation.y = elapsed / 7 * -1;
-            cloudRef.current.rotation.y = elapsed / 7 * -1;
+            marsRef.current.rotation.y = elapsed / 12;
+            cloudRef.current.rotation.y = elapsed / 12;
         }
     });
 
@@ -30,11 +30,11 @@ const Mars = () => {
             {
                 ['mars', ''].includes(target) ? (
                     <>
-                        <mesh ref={cloudRef} position={sun.position}>
+                        <mesh ref={cloudRef} position={sun.position} rotation={[-0.252, 0, 0]}>
                             <sphereGeometry args={[0.505, 100, 100]} />
                             <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
                         </mesh>
-                        <mesh ref={marsRef} position={sun.position}>
+                        <mesh ref={marsRef} position={sun.position} rotation={[-0.252, 0, 0]}>
                             <sphereGeometry args={[0.5, 100, 100]} />
                             <meshPhongMaterial specular={bumpMap} />
                             <meshStandardMaterial

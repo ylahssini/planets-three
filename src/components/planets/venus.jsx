@@ -15,13 +15,13 @@ const Venus = () => {
     const { sun, target } = useStore(selector);
     const venusRef = useRef();
     const cloudRef = useRef();
-    const orbitRef = useOrbit({ radius: 100, speed: 0.17, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 100, speed: 0.2, enabled: target === '' });
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (venusRef.current) {
-            venusRef.current.rotation.y = elapsed / 4 * -1;
-            cloudRef.current.rotation.y = elapsed / 4 * -1;
+            venusRef.current.rotation.y = elapsed / -30;
+            cloudRef.current.rotation.y = elapsed / -30;
         }
     });
 

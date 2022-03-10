@@ -21,7 +21,7 @@ const Sun = () => {
 
     return (
         <mesh ref={sunRef} name="sun" position={[80, 0, 0]} receiveShadow={false}>
-            <sphereGeometry args={[30, 300, 300]} />
+            <sphereGeometry args={[35, 300, 300]} />
             <meshBasicMaterial map={sunMap} side={THREE.DoubleSide} transparent opacity={target ? 0 : 1} />
         </mesh>
     );

@@ -3,7 +3,7 @@ import { Stars, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStore } from '../store';
-import Sun from './sun';
+import Sun from './planets/sun';
 import Mercury from './planets/mercury';
 import Venus from './planets/venus';
 import Earth from './planets/earth';
@@ -48,10 +48,10 @@ const Wrapper = ({ v = new THREE.Vector3() }) => {
         <>
             <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
 
-            <Stars radius={333} depth={1} />
+            <Stars radius={200} factor={6} count={8000} />
             <pointLight
                 color="#f8f8f0"
-                position={[80, 1, 0]}
+                position={[80, 0.05, 0]}
                 sphereSize={40}
                 intensity={1}
                 castShadow

@@ -37,10 +37,6 @@ const App = () => {
                     <Wrapper />
                 </React.Suspense>
             </Canvas>
-
-            <footer>
-                <span>من تصميم</span> <a href="https://ylahssini.vercel.app" target="_blank" rel="noreferrer">يوسف الحسيني</a>
-            </footer>
         </main>
     );
 };

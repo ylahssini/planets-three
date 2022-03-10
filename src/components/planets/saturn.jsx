@@ -9,12 +9,12 @@ import SaturnNormalMap from '../../assets/saturn/saturn_normal.webp';
 import SaturnBumpMap from '../../assets/saturn/saturn_bump.webp';
 import SaturnCloudsMap from '../../assets/saturn/saturn_clouds.webp';
 
-const selector = ({ sun, target}) => ({ sun, target });
+const selector = ({ sun, target }) => ({ sun, target });
 
 const Saturn = () => {
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [SaturnColorMap, SaturnBumpMap, SaturnNormalMap, SaturnCloudsMap]);
     const { sun, target } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 230, speed: 0.07, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 230, speed: 0.05, enabled: target === '' });
     const saturnRef = useRef();
     const cloudRef = useRef();
     const rings = useRings({
@@ -26,8 +26,8 @@ const Saturn = () => {
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (saturnRef.current) {
-            saturnRef.current.rotation.y = elapsed / 10 * -1;
-            cloudRef.current.rotation.y = elapsed / 10 * -1;
+            saturnRef.current.rotation.y = elapsed / -4;
+            cloudRef.current.rotation.y = elapsed / -4;
         }
     });
 
@@ -37,11 +37,11 @@ const Saturn = () => {
                 {
                     ['saturn', ''].includes(target) ? (
                         <>
-                            <mesh ref={cloudRef} position={sun.position} castShadow>
+                            <mesh ref={cloudRef} position={sun.position} castShadow rotation={[0.287, 0, 0]}>
                                 <sphereGeometry args={[16.01, 100, 100]} />
                                 <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.3} />
                             </mesh>
-                            <mesh ref={saturnRef} position={sun.position} castShadow>
+                            <mesh ref={saturnRef} position={sun.position} castShadow rotation={[0.287, 0, 0]}>
                                 <sphereGeometry args={[16, 100, 100]} />
                                 <meshPhongMaterial specular={bumpMap} />
                                 <meshStandardMaterial
@@ -53,9 +53,9 @@ const Saturn = () => {
                             </mesh>
                             {
                                 rings.map((ring, i) => (
-                                    <mesh key={ring.color + i} position={sun.position} rotation={[-30, 0.1, 0]} receiveShadow>
+                                    <mesh key={ring.color + i} position={sun.position} rotation={[1.573, 0.1, 0.5]} receiveShadow>
                                         <ringGeometry args={ring.args} />
-                                        <meshStandardMaterial attach="material" color={ring.color} side={THREE.DoubleSide} opacity={0.85} />
+                                        <meshStandardMaterial attach="material" color={ring.color} side={THREE.DoubleSide} transparent opacity={0.85} />
                                     </mesh>
                                 ))
                             }

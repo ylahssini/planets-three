@@ -12,13 +12,13 @@ const selector = ({ sun, target}) => ({ sun, target });
 const Mercury = () => {
     const [colorlMap, bumpMap, normalMap] = useLoader(THREE.TextureLoader, [MercuryColorMap, MercuryBumpMap, MercuryNormalMap]);
     const { sun, target } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 60, speed: 0.5, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 60, speed: 0.895, enabled: target === '' });
     const mercuryRef = useRef();
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (mercuryRef.current) {
-            mercuryRef.current.rotation.y = elapsed / 4 * -1;
+            mercuryRef.current.rotation.y = elapsed / 16;
         }
     });
 

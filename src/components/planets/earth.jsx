@@ -27,8 +27,8 @@ const Earth = () => {
         const elapsed = clock.elapsedTime;
 
         if (earthRef.current && cloudRef.current) {
-            earthRef.current.rotation.y = elapsed / 6;
-            cloudRef.current.rotation.y = elapsed / 6;
+            earthRef.current.rotation.y = elapsed / 11;
+            cloudRef.current.rotation.y = elapsed / 11;
         }
     });
 
@@ -41,7 +41,7 @@ const Earth = () => {
                             <sphereGeometry args={[1.51, 100, 100]} />
                             <meshPhongMaterial map={cloudMap} transparent depthWrite opacity={0.5} />
                         </mesh>
-                        <mesh ref={earthRef} position={sun.position} rotation={[0, 0, 0.3]} castShadow>
+                        <mesh ref={earthRef} position={sun.position} rotation={[0, 0, -0.345]} castShadow>
                             <sphereGeometry args={[1.5, 100, 100]} />
                             <meshPhysicalMaterial specular={bumpMap} />
                             <meshStandardMaterial

@@ -13,15 +13,15 @@ const selector = ({ sun, target}) => ({ sun, target });
 const Jupiter = () => {
     const [colorlMap, bumpMap, normalMap, cloudMap] = useLoader(THREE.TextureLoader, [JupiterColorMap, JupiterBumpMap, JupiterNormalMap, JupiterCloudsMap]);
     const { sun, target } = useStore(selector);
-    const orbitRef = useOrbit({ radius: 180, speed: 0.05, enabled: target === '' });
+    const orbitRef = useOrbit({ radius: 180, speed: 0.075, enabled: target === '' });
     const jupiterRef = useRef();
     const cloudRef = useRef();
 
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (jupiterRef.current) {
-            jupiterRef.current.rotation.y = elapsed / 10 * -1;
-            cloudRef.current.rotation.y = elapsed / 10 * -1;
+            jupiterRef.current.rotation.y = elapsed / 3.85;
+            cloudRef.current.rotation.y = elapsed / 3.85;
         }
     });
 

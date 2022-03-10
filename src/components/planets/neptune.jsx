@@ -18,7 +18,7 @@ const Neptune = () => {
     useFrame(({ clock }) => {
         const elapsed = clock.elapsedTime;
         if (neptuneRef.current) {
-            neptuneRef.current.rotation.y = elapsed / 3 * -1;
+            neptuneRef.current.rotation.y = elapsed / 5.5;
         }
     });
 
@@ -26,7 +26,7 @@ const Neptune = () => {
         <group ref={orbitRef} name="neptune">
             {
                 ['neptune', ''].includes(target) ? (
-                    <mesh ref={neptuneRef} position={sun.position}>
+                    <mesh ref={neptuneRef} position={sun.position} rotation={[-0.283, 0, 0]}>
                         <sphereBufferGeometry args={[7.65, 200, 200]} />
                         <meshPhongMaterial specular={bumpMap} />
                         <meshStandardMaterial
