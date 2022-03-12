@@ -49,7 +49,7 @@ const Wrapper = ({ v = new THREE.Vector3() }) => {
             <OrbitControls rotateSpeed={0.5} panSpeed={0.5} zoomSpeed={0.5} />
 
             <Stars radius={200} factor={6} count={8000} />
-            <pointLight color="#f8f8f0" position={[80, 0.05, 0]} sphereSize={40} intensity={1} castShadow/>
+            <pointLight color="#f8f8f0" position={[80, 0.05, 0]} sphereSize={60} intensity={1} castShadow />
 
             <group ref={solarSystem}>
                 <Sun />
