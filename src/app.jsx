@@ -3,13 +3,13 @@ import { Canvas } from '@react-three/fiber';
 import { useProgress, Html } from '@react-three/drei';
 import Wrapper from './components/wrapper';
 import Header from './components/header';
+import Informations from './components/informations';
 import './app.scss';
 
 function CustomLoader() {
     const { progress } = useProgress();
     const roundedProgress = Math.round(progress);
 
-    console.log(roundedProgress);
     return (
         <Html center>
             <div className="loading">
@@ -37,6 +37,8 @@ const App = () => {
                     <Wrapper />
                 </React.Suspense>
             </Canvas>
+
+            <Informations />
         </main>
     );
 };

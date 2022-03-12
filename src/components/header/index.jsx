@@ -26,7 +26,11 @@ const Header = () => {
     if (!loading) {
         return (
             <header>
-                <h1>النظام الشمسي</h1>
+                <h1 className="title">
+                    النظام الشمسي
+                    <small>من تصميم <a href="https://ylahssini.vercel.app" target="_blank" rel="noreferrer">يوسف الحسيني</a></small>
+                </h1>
+
                 <aside className="side">
                     <Swicth
                         handleChange={handleSwitch}
@@ -34,11 +38,12 @@ const Header = () => {
                         label="وضع حر"
                         disabled={target !== ''}
                     />
+
                     <Select
                         data={data}
                         isRtl
                         disabled={free_mode}
-                        placeholder="حدد"
+                        placeholder="الشمس"
                         handleChange={handleSelect}
                     />
                 </aside>

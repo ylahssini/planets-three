@@ -1,0 +1,43 @@
+.definition {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    z-index: 9;
+    width: 400px;
+    color: #FFF;
+
+    &-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-content {
+        font-size: 14px;
+        font-weight: 300;
+        text-align: right;
+        padding: 0 0 1.5rem;
+    }
+
+    &-url {
+        color: dodgerblue;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &-footer {
+        font-size: 14px;
+        font-weight: 300;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        direction: rtl;
+
+        > strong {
+            font-weight: 500;
+        }
+    }
+}

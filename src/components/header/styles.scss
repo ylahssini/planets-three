@@ -1,3 +1,32 @@
+.title {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 1em;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+
+    > small {
+        font-size: 13px;
+        font-weight: 300;
+        padding-right: 1em;
+
+        > a {
+            color: #fff;
+            text-decoration: underline;
+            transition: all .2s ease-in-out;
+    
+            &:hover, &:active {
+                color: dodgerblue;
+                text-decoration-color: dodgerblue;
+            }
+        }
+    }
+}
+
 .side {
     position: fixed;
     top: 1em;
