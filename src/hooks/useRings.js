@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import random from 'lodash.random';
 
-export default function useRings({ colors = [], sizes = [], randomize = true, start, end }) {
+export default function useRings({ colors = [], sizes = [], opacities = [], randomize = true, start, end }) {
     return useMemo(() => {
-        if (start && end) {
+        if (start) {
             let a = start;
-            let b = end;
+            let b = sizes.length > 0 ? start + sizes.reduce((acc, curr) => acc + curr, 0) : end;
 
             return Array(start).fill(null).map((_, i) => {
                 let indexColor = random(0, colors.length - 1);
@@ -24,6 +24,7 @@ export default function useRings({ colors = [], sizes = [], randomize = true, st
                 return {
                     args: [a, b, 100],
                     color: color,
+                    opacity: opacities[i] || 1,
                 };
             });
         }
