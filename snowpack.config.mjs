@@ -8,6 +8,12 @@ export default {
         [
             '@snowpack/plugin-sass',
             { native: false },
+        ],
+        [
+            '@snowpack/plugin-webpack',
+            {
+                htmlMinifierOptions: true,
+            },
         ]
     ],
     routes: [
