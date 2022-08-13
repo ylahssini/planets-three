@@ -4,6 +4,7 @@ import { useProgress, Html } from '@react-three/drei';
 import Wrapper from './components/wrapper';
 import Header from './components/header';
 import Informations from './components/informations';
+import Github from './components/github';
 import './app.scss';
 
 function CustomLoader() {
@@ -39,6 +40,8 @@ const App = () => {
             </Canvas>
 
             <Informations />
+
+            <Github />
         </main>
     );
 };
