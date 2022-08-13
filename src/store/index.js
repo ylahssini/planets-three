@@ -52,7 +52,7 @@ export const useStore = create((set) => ({
         },
         mars: {
             radiusX: 140,
-            fov: 2,
+            fov: 7,
             title: { ar: 'المريخ', en: 'Mars' },
             description: {
                 color: '#964244',
