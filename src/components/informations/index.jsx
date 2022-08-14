@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStore } from '../../store';
+import { useStore } from '@src/store';
 import './styles.scss';
 
 const selector = ({ loading, target, sun, planets }) => ({ loading, target, sun, planets });

@@ -1,7 +1,16 @@
 import React from 'react';
+import { useStore } from '@src/store';
 import './styles.scss';
 
+const selector = ({ loading }) => ({ loading });
+
 const Github = () => {
+    const { loading } = useStore(selector);
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <a href="https://github.com/ylahssini/solar-system" target="_blank" rel="noreferrer" className="github">
             <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 250 250" fill="#11121c">

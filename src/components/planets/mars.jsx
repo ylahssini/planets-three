@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import MarsNormalMap from '../../assets/mars/mars_normal.webp';
-import MarsColorlMap from '../../assets/mars/mars_map.webp';
-import MarsBumpMap from '../../assets/mars/mars_bump.webp';
-import MarsCloudsMap from '../../assets/mars/mars_clouds.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import MarsNormalMap from '@src/assets/mars/mars_normal.webp';
+import MarsColorlMap from '@src/assets/mars/mars_map.webp';
+import MarsBumpMap from '@src/assets/mars/mars_bump.webp';
+import MarsCloudsMap from '@src/assets/mars/mars_clouds.webp';
 
 const selector = ({ sun, target }) => ({ sun, target });
 

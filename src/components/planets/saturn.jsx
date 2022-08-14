@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import useOrbit from '../../hooks/useOrbit';
-import useRings from '../../hooks/useRings';
-import { useStore } from '../../store';
-import SaturnColorMap from '../../assets/saturn/saturn_map.webp';
-import SaturnNormalMap from '../../assets/saturn/saturn_normal.webp';
-import SaturnBumpMap from '../../assets/saturn/saturn_bump.webp';
-import SaturnCloudsMap from '../../assets/saturn/saturn_clouds.webp';
+import useOrbit from '@src/hooks/useOrbit';
+import useRings from '@src/hooks/useRings';
+import { useStore } from '@src/store';
+import SaturnColorMap from '@src/assets/saturn/saturn_map.webp';
+import SaturnNormalMap from '@src/assets/saturn/saturn_normal.webp';
+import SaturnBumpMap from '@src/assets/saturn/saturn_bump.webp';
+import SaturnCloudsMap from '@src/assets/saturn/saturn_clouds.webp';
 
 const selector = ({ sun, target }) => ({ sun, target });
 

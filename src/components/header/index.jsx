@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Select from './select';
 import Swicth from './switch';
-import { useStore } from '../../store';
+import { useStore } from '@src/store';
 import './styles.scss';
 
 const selector = ({ loading, planets, free_mode, target, setFreeMode, setTarget }) => ({

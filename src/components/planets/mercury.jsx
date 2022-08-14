@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import MercuryColorMap from '../../assets/mercury/mercury_map.webp';
-import MercuryNormalMap from '../../assets/mercury/mercury_normal.webp';
-import MercuryBumpMap from '../../assets/mercury/mercury_bump.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import MercuryColorMap from '@src/assets/mercury/mercury_map.webp';
+import MercuryNormalMap from '@src/assets/mercury/mercury_normal.webp';
+import MercuryBumpMap from '@src/assets/mercury/mercury_bump.webp';
 
 const selector = ({ sun, target}) => ({ sun, target });
 

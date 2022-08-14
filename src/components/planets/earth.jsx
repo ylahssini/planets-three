@@ -2,15 +2,15 @@ import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { useFrame } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import EarthNormalMap from '../../assets/earth/8k_earth_normal_map.webp';
-import EarthDayColorMap from '../../assets/earth/8k_earth_daymap.webp';
-import EarthBumpMap from '../../assets/earth/8k_earth_specular_map.webp';
-import EarthCloudsMap from '../../assets/earth/8k_earth_clouds.webp';
-import MoonMap from '../../assets/earth/moon_map.webp';
-import MoonNormal from '../../assets/earth/moon_normal.webp';
-import MoonBump from '../../assets/earth/moon_bump.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import EarthNormalMap from '@src/assets/earth/8k_earth_normal_map.webp';
+import EarthDayColorMap from '@src/assets/earth/8k_earth_daymap.webp';
+import EarthBumpMap from '@src/assets/earth/8k_earth_specular_map.webp';
+import EarthCloudsMap from '@src/assets/earth/8k_earth_clouds.webp';
+import MoonMap from '@src/assets/earth/moon_map.webp';
+import MoonNormal from '@src/assets/earth/moon_normal.webp';
+import MoonBump from '@src/assets/earth/moon_bump.webp';
 
 const selector = ({ sun, target }) => ({ sun, target });
 

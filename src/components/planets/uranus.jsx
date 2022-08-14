@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import UranusColorMap from '../../assets/uranus/uranus_map.webp';
-import UranusBumpMap from '../../assets/uranus/uranus_bump.webp';
-import useRings from '../../hooks/useRings';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import UranusColorMap from '@src/assets/uranus/uranus_map.webp';
+import UranusBumpMap from '@src/assets/uranus/uranus_bump.webp';
+import useRings from '@src/hooks/useRings';
 
 const selector = ({ sun, target}) => ({ sun, target });
 

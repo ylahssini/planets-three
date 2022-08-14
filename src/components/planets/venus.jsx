@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import VenusColorMap from '../../assets/venus/venus_map.webp';
-import VenusNormalMap from '../../assets/venus/venus_normal.webp';
-import VenusBumpMap from '../../assets/venus/venus_bump.webp';
-import VenusCloudsMap from '../../assets/venus/venus_clouds.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import VenusColorMap from '@src/assets/venus/venus_map.webp';
+import VenusNormalMap from '@src/assets/venus/venus_normal.webp';
+import VenusBumpMap from '@src/assets/venus/venus_bump.webp';
+import VenusCloudsMap from '@src/assets/venus/venus_clouds.webp';
 
 const selector = ({ sun, target}) => ({ sun, target });
 

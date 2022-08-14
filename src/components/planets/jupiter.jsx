@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import JupiterColorMap from '../../assets/jupiter/jupiter_map.webp';
-import JupiterNormalMap from '../../assets/jupiter/jupiter_normal.webp';
-import JupiterBumpMap from '../../assets/jupiter/jupiter_bump.webp';
-import JupiterCloudsMap from '../../assets/jupiter/jupiter_clouds.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import JupiterColorMap from '@src/assets/jupiter/jupiter_map.webp';
+import JupiterNormalMap from '@src/assets/jupiter/jupiter_normal.webp';
+import JupiterBumpMap from '@src/assets/jupiter/jupiter_bump.webp';
+import JupiterCloudsMap from '@src/assets/jupiter/jupiter_clouds.webp';
 
 const selector = ({ sun, target}) => ({ sun, target });
 

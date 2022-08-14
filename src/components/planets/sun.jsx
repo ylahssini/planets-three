@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import SunMap from '../../assets/sun/sun.webp';
+import { useStore } from '@src/store';
+import SunMap from '@src/assets/sun/sun.webp';
 
 const selector = ({ target }) => ({ target });
 

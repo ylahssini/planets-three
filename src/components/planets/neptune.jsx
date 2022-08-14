@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useStore } from '../../store';
-import useOrbit from '../../hooks/useOrbit';
-import NeptuneColorMap from '../../assets/neptune/neptune_map.webp';
-import NeptuneBumpMap from '../../assets/neptune/neptune_bump.webp';
-import NeptuneNormalMap from '../../assets/neptune/neptune_normal.webp';
+import { useStore } from '@src/store';
+import useOrbit from '@src/hooks/useOrbit';
+import NeptuneColorMap from '@src/assets/neptune/neptune_map.webp';
+import NeptuneBumpMap from '@src/assets/neptune/neptune_bump.webp';
+import NeptuneNormalMap from '@src/assets/neptune/neptune_normal.webp';
 
 const selector = ({ sun, target}) => ({ sun, target });
 

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Stars, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useStore } from '../store';
+import { useStore } from '@src/store';
 import Sun from './planets/sun';
 import Mercury from './planets/mercury';
 import Venus from './planets/venus';
