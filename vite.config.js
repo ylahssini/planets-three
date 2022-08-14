@@ -5,6 +5,7 @@ import path from 'path';
 
 export default defineConfig({
     plugins: [reactRefresh()],
+    outDir: 'build',
     resolve: {
         alias: [
             { find: '@src', replacement: path.resolve(__dirname, 'src') },
